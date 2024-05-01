@@ -1,40 +1,32 @@
 package bomberman.entities.mobs;
 
-import bomberman.control.Movement;
+import bomberman.control.Status;
 import bomberman.entities.Entity;
 import javafx.scene.image.Image;
-import bomberman.control.Movement.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Mob extends Entity {
-    protected  boolean isMove;
     protected boolean isLive;
-    protected Direction dir;
+    protected Status status;
     protected double vel;
+    protected List<Image> leftSprite = new ArrayList<>();
+    protected List<Image> rightSprite = new ArrayList<>();
+    protected List<Image> upSprite = new ArrayList<>();
+    protected List<Image> downSprite = new ArrayList<>();
 
-    public Mob() {}
-
-    public void setIsMove(boolean isMove) {
-        this.isMove = isMove;
+    public Mob(Image img, double x, double y) {
+        super(img, x, y);
+        loadImage();
     }
 
-    public boolean getIsMove() {
-        return isMove;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
-    public void setIsLive(boolean isLive) {
-        this.isLive = isLive;
-    }
-
-    public boolean getIsLive() {
-        return isLive;
-    }
-
-    public void setDir(Direction dir) {
-        this.dir = dir;
-    }
-
-    public Direction getDir() {
-        return dir;
+    public Status getStatus() {
+        return status;
     }
 
     public void setVel(double vel) {
@@ -44,4 +36,33 @@ public abstract class Mob extends Entity {
     public double getVel() {
         return vel;
     }
+
+    public void setLive(boolean live) {
+        isLive = live;
+    }
+
+    public List<Image> getLeftSprite() {
+        return leftSprite;
+    }
+
+    public List<Image> getRightSprite() {
+        return rightSprite;
+    }
+
+    public List<Image> getUpSprite() {
+        return upSprite;
+    }
+
+    public List<Image> getDownSprite() {
+        return downSprite;
+    }
+
+    public abstract void loadImage();
+
+    /**
+     * Kiểm tra mob có va chạm với nguy hiểm không.
+     */
+    public abstract void checkDie();
+
+    public abstract void die();
 }
